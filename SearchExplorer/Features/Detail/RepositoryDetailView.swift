@@ -7,24 +7,7 @@ struct RepositoryDetailView: View {
         List {
             Section {
                 HStack(spacing: 16) {
-                    AsyncImage(url: repository.ownerAvatarURL) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        case .failure:
-                            Image(systemName: "person.crop.circle")
-                                .font(.largeTitle)
-                                .foregroundStyle(.secondary)
-                        case .empty:
-                            ProgressView()
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
-                    .frame(width: 64, height: 64)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    OwnerAvatarView(url: repository.ownerAvatarURL, side: 64)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(repository.name)
@@ -32,6 +15,8 @@ struct RepositoryDetailView: View {
                         Text(repository.ownerLogin)
                             .foregroundStyle(.secondary)
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(repository.name), by \(repository.ownerLogin)")
                 }
                 .padding(.vertical, 4)
             }
@@ -58,6 +43,7 @@ struct RepositoryDetailView: View {
                 Link(destination: repository.htmlURL) {
                     Label("Open on GitHub", systemImage: "safari")
                 }
+                .accessibilityHint("Opens this repository in Safari")
             }
         }
         .navigationTitle(repository.name)

@@ -19,8 +19,7 @@ final class SearchViewModelTests: XCTestCase {
 
     func testOnAppearLoadsRecentsViaProtocol() async {
         viewModel.onAppear()
-        try? await Task.sleep(nanoseconds: 50_000_000)
-        XCTAssertEqual(viewModel.recentSearches, ["swiftui"])
+        await AsyncTestWait.until { viewModel.recentSearches == ["swiftui"] }
     }
 
     func testSuccessfulSearchUpdatesResultsAndRecordsRecent() async {
@@ -34,9 +33,8 @@ final class SearchViewModelTests: XCTestCase {
         )
 
         viewModel.query = "explorer"
-        try? await Task.sleep(nanoseconds: 80_000_000)
+        await AsyncTestWait.until { viewModel.phase == .loaded }
 
-        XCTAssertEqual(viewModel.phase, .loaded)
         XCTAssertEqual(viewModel.results.map(\.id), [1])
         XCTAssertEqual(viewModel.recentSearches.first, "explorer")
         let calls = await searchService.callCount()
@@ -51,9 +49,7 @@ final class SearchViewModelTests: XCTestCase {
         )
 
         viewModel.query = "zzzz-no-hits"
-        try? await Task.sleep(nanoseconds: 80_000_000)
-
-        XCTAssertEqual(viewModel.phase, .empty)
+        await AsyncTestWait.until { viewModel.phase == .empty }
         XCTAssertTrue(viewModel.results.isEmpty)
     }
 
@@ -61,18 +57,16 @@ final class SearchViewModelTests: XCTestCase {
         await searchService.setError(.rateLimited(retryAfter: 30))
 
         viewModel.query = "swift"
-        try? await Task.sleep(nanoseconds: 80_000_000)
-
-        XCTAssertEqual(viewModel.phase, .failed(.rateLimited(retryAfter: 30)))
+        await AsyncTestWait.until {
+            viewModel.phase == .failed(.rateLimited(retryAfter: 30))
+        }
     }
 
     func testOfflineMapsToFailedPhase() async {
         await searchService.setError(.offline)
 
         viewModel.query = "swift"
-        try? await Task.sleep(nanoseconds: 80_000_000)
-
-        XCTAssertEqual(viewModel.phase, .failed(.offline))
+        await AsyncTestWait.until { viewModel.phase == .failed(.offline) }
     }
 
     func testClearingQueryReturnsToIdleAndDropsResults() async {
@@ -86,14 +80,18 @@ final class SearchViewModelTests: XCTestCase {
         )
 
         viewModel.query = "keep"
-        try? await Task.sleep(nanoseconds: 80_000_000)
-        XCTAssertEqual(viewModel.phase, .loaded)
+        await AsyncTestWait.until { viewModel.phase == .loaded }
 
         viewModel.query = ""
-        try? await Task.sleep(nanoseconds: 40_000_000)
-
-        XCTAssertEqual(viewModel.phase, .idle)
+        await AsyncTestWait.until { viewModel.phase == .idle }
         XCTAssertTrue(viewModel.results.isEmpty)
+    }
+
+    func testWhitespaceOnlyQueryDoesNotSearch() async {
+        viewModel.query = "   "
+        await AsyncTestWait.until { viewModel.phase == .idle }
+        let calls = await searchService.callCount()
+        XCTAssertEqual(calls, 0)
     }
 
     func testStaleResponseDoesNotStompNewerQuery() async {
@@ -116,14 +114,12 @@ final class SearchViewModelTests: XCTestCase {
         await searchService.setDelay(120_000_000)
 
         viewModel.query = "slow"
-
-        try? await Task.sleep(nanoseconds: 20_000_000)
+        let started = await searchService.waitUntilCallCount(atLeast: 1)
+        XCTAssertTrue(started, "Expected slow search to begin before superseding it")
         await searchService.setDelay(0)
         viewModel.query = "fast"
 
-        try? await Task.sleep(nanoseconds: 200_000_000)
-
-        XCTAssertEqual(viewModel.results.map(\.id), [2])
+        await AsyncTestWait.until { viewModel.results.map(\.id) == [2] }
         XCTAssertEqual(viewModel.phase, .loaded)
     }
 
@@ -142,20 +138,98 @@ final class SearchViewModelTests: XCTestCase {
         )
 
         viewModel.query = "paged"
-        try? await Task.sleep(nanoseconds: 80_000_000)
-        XCTAssertEqual(viewModel.results.count, 30)
+        await AsyncTestWait.until { viewModel.results.count == 30 }
 
         viewModel.loadMoreIfNeeded(currentItem: page1[28])
-        try? await Task.sleep(nanoseconds: 80_000_000)
-
-        XCTAssertEqual(viewModel.results.count, 31)
+        await AsyncTestWait.until { viewModel.results.count == 31 }
         let calls = await searchService.callCount()
         XCTAssertEqual(calls, 2)
     }
 
+    func testLoadMoreDoesNotFireWhenPageExhaustsTotalCount() async {
+        let onlyPage = [RepositoryFixtures.repository(id: 1, name: "solo")]
+        await searchService.setResult(
+            query: "exact",
+            page: 1,
+            result: RepositoryFixtures.page(items: onlyPage, totalCount: 1, page: 1)
+        )
+
+        viewModel.query = "exact"
+        await AsyncTestWait.until { viewModel.phase == .loaded }
+
+        viewModel.loadMoreIfNeeded(currentItem: onlyPage[0])
+        let calls = await searchService.callCount()
+        XCTAssertEqual(calls, 1)
+    }
+
+    func testResultWindowExhaustedStopsFurtherPagination() async {
+        let page1 = (1...30).map { RepositoryFixtures.repository(id: $0, name: "r\($0)") }
+        await searchService.setResult(
+            query: "huge",
+            page: 1,
+            result: RepositoryFixtures.page(items: page1, totalCount: 50_000, page: 1)
+        )
+        await searchService.setError(.resultWindowExhausted, query: "huge", page: 2)
+
+        viewModel.query = "huge"
+        await AsyncTestWait.until { viewModel.results.count == 30 }
+
+        viewModel.loadMoreIfNeeded(currentItem: page1[28])
+        await AsyncTestWait.until { viewModel.isLoadingMore == false }
+
+        XCTAssertEqual(viewModel.results.count, 30)
+        XCTAssertEqual(viewModel.phase, .loaded)
+
+        let callsAfterCap = await searchService.callCount()
+        XCTAssertEqual(callsAfterCap, 2)
+
+        viewModel.loadMoreIfNeeded(currentItem: page1[28])
+        let callsAfterRetry = await searchService.callCount()
+        XCTAssertEqual(callsAfterRetry, 2, "canLoadMore should stay false after result window exhaustion")
+    }
+
+    func testPaginationFailureKeepsExistingResults() async {
+        let page1 = (1...30).map { RepositoryFixtures.repository(id: $0, name: "r\($0)") }
+        await searchService.setResult(
+            query: "paged",
+            page: 1,
+            result: RepositoryFixtures.page(items: page1, totalCount: 60, page: 1)
+        )
+
+        viewModel.query = "paged"
+        await AsyncTestWait.until { viewModel.results.count == 30 }
+
+        await searchService.setError(.offline)
+        viewModel.loadMoreIfNeeded(currentItem: page1[28])
+        await AsyncTestWait.until { viewModel.isLoadingMore == false }
+
+        XCTAssertEqual(viewModel.results.count, 30)
+        XCTAssertEqual(viewModel.phase, .loaded)
+    }
+
+    func testRetryReissuesImmediateSearch() async {
+        await searchService.setError(.offline)
+        viewModel.query = "swift"
+        await AsyncTestWait.until { viewModel.phase == .failed(.offline) }
+
+        await searchService.setError(nil)
+        await searchService.setResult(
+            query: "swift",
+            page: 1,
+            result: RepositoryFixtures.page(
+                items: [RepositoryFixtures.repository(id: 3)],
+                totalCount: 1
+            )
+        )
+
+        viewModel.retry()
+        await AsyncTestWait.until { viewModel.phase == .loaded }
+        XCTAssertEqual(viewModel.results.map(\.id), [3])
+    }
+
     func testSelectRecentReusesProtocolBackedTerm() async {
         viewModel.onAppear()
-        try? await Task.sleep(nanoseconds: 40_000_000)
+        await AsyncTestWait.until { viewModel.recentSearches == ["swiftui"] }
         await searchService.setResult(
             query: "swiftui",
             page: 1,
@@ -166,22 +240,33 @@ final class SearchViewModelTests: XCTestCase {
         )
 
         viewModel.selectRecent("swiftui")
-        try? await Task.sleep(nanoseconds: 80_000_000)
-
+        await AsyncTestWait.until { viewModel.phase == .loaded }
         XCTAssertEqual(viewModel.query, "swiftui")
-        XCTAssertEqual(viewModel.phase, .loaded)
     }
 
     func testClearRecentsUsesStoreProtocol() async {
         viewModel.onAppear()
-        try? await Task.sleep(nanoseconds: 40_000_000)
-        XCTAssertFalse(viewModel.recentSearches.isEmpty)
+        await AsyncTestWait.until { !viewModel.recentSearches.isEmpty }
 
         viewModel.clearRecents()
-        try? await Task.sleep(nanoseconds: 40_000_000)
-
-        XCTAssertTrue(viewModel.recentSearches.isEmpty)
+        await AsyncTestWait.until { viewModel.recentSearches.isEmpty }
         let clearCount = await recentStore.clearCount
         XCTAssertEqual(clearCount, 1)
+    }
+
+    func testIncompleteResultsFlagSurfacesFromPage() async {
+        await searchService.setResult(
+            query: "partial",
+            page: 1,
+            result: RepositoryFixtures.page(
+                items: [RepositoryFixtures.repository(id: 5)],
+                totalCount: 1,
+                incompleteResults: true
+            )
+        )
+
+        viewModel.query = "partial"
+        await AsyncTestWait.until { viewModel.phase == .loaded }
+        XCTAssertTrue(viewModel.incompleteResults)
     }
 }

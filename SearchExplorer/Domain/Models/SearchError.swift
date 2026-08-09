@@ -5,10 +5,48 @@ enum SearchError: Error, Equatable, Sendable {
     case invalidURL
     case offline
     case rateLimited(retryAfter: TimeInterval?)
+    /// GitHub search only returns the first 1,000 hits; further pages 422.
+    case resultWindowExhausted
     case httpStatus(Int)
     case decodingFailed
     case cancelled
     case unknown(String)
+
+    var title: String {
+        switch self {
+        case .offline:
+            "You're offline"
+        case .rateLimited:
+            "Rate limit reached"
+        case .emptyQuery:
+            "Nothing to search"
+        case .resultWindowExhausted:
+            "End of results"
+        case .decodingFailed, .invalidURL:
+            "Unexpected response"
+        case .httpStatus, .unknown:
+            "Search failed"
+        case .cancelled:
+            "Search cancelled"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .offline:
+            "wifi.slash"
+        case .rateLimited:
+            "hourglass"
+        case .emptyQuery:
+            "magnifyingglass"
+        case .resultWindowExhausted:
+            "tray"
+        case .decodingFailed, .invalidURL:
+            "wrench.and.screwdriver"
+        case .httpStatus, .unknown, .cancelled:
+            "exclamationmark.triangle"
+        }
+    }
 
     var userMessage: String {
         switch self {
@@ -17,13 +55,15 @@ enum SearchError: Error, Equatable, Sendable {
         case .invalidURL:
             "Could not build a valid search request."
         case .offline:
-            "You appear to be offline. Check your connection and try again."
+            "Check your connection and try again."
         case .rateLimited(let retryAfter):
             if let retryAfter {
-                "GitHub rate limit hit. Try again in about \(Int(retryAfter.rounded()))s."
+                "GitHub asked us to slow down. Try again in about \(Int(retryAfter.rounded()))s."
             } else {
-                "GitHub rate limit hit. Wait a moment and try again."
+                "GitHub asked us to slow down. Wait a moment and try again."
             }
+        case .resultWindowExhausted:
+            "GitHub only returns the first 1,000 matching repositories."
         case .httpStatus(let code):
             "Server returned \(code). Try again shortly."
         case .decodingFailed:

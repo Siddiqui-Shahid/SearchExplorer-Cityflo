@@ -22,7 +22,9 @@ struct SearchPage: Sendable {
     let page: Int
     let perPage: Int
 
+    /// True when this page is non-empty and more pages remain by GitHub's totals.
     var canLoadMore: Bool {
-        items.count < totalCount && !items.isEmpty
+        guard !items.isEmpty else { return false }
+        return page * perPage < totalCount
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B42CD0A46AD57EBEAD4130A /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBF3ED59490A079374E9227 /* Repository.swift */; };
 		15B770CBF0850779FA39F558 /* RepositoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738CAC9F9F612C61218F6348 /* RepositoryRowView.swift */; };
+		17C9C9C763408C982A08B200 /* AsyncTestWait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145DE6671F5AE492E3394C92 /* AsyncTestWait.swift */; };
 		28D3F3F1C45058B15D68D193 /* SearchNetworkClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FE7D4FD74B2C52FBCC0A56 /* SearchNetworkClientTests.swift */; };
 		2938C288C1CCB60A59157F56 /* InMemoryKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB0FD9888B9822BD19E46EA /* InMemoryKeyValueStore.swift */; };
 		29733D27B5974759063C75BA /* RecentSearchesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC990B0C2632D6037CB0CF5C /* RecentSearchesStore.swift */; };
@@ -19,6 +20,7 @@
 		6B2E863485E5FD1D59182792 /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F241FD391503969E18C65A08 /* RepositoryDetailView.swift */; };
 		8076EE674F04B456625EF60A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C09D9D818ACECDFDC4298 /* Assets.xcassets */; };
 		8A82416A5F9E80581B9FCD4D /* RepositoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309045C0132AF5433B027976 /* RepositoryFixtures.swift */; };
+		934CD9A4AE4BC83A4985E2D7 /* OwnerAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F9C723C6B5AFE1A61A938C /* OwnerAvatarView.swift */; };
 		C0C630B65566063431F4E392 /* FakeRecentSearchesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34FCB7979D1625A810B6B8 /* FakeRecentSearchesStore.swift */; };
 		C21F7DC724701423E015E241 /* RecentSearchesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C7E73951CFB66688FEA047 /* RecentSearchesStoreTests.swift */; };
 		C666BC5F8D0EC1F74982FF87 /* SearchServing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ED30EFF2015DD59D6FAA8A /* SearchServing.swift */; };
@@ -44,6 +46,7 @@
 /* Begin PBXFileReference section */
 		0BD8D6600D90AB2BF8B90027 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		100A83B050267B79BA157239 /* KeyValueStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
+		145DE6671F5AE492E3394C92 /* AsyncTestWait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncTestWait.swift; sourceTree = "<group>"; };
 		2FB0FD9888B9822BD19E46EA /* InMemoryKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueStore.swift; sourceTree = "<group>"; };
 		309045C0132AF5433B027976 /* RepositoryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFixtures.swift; sourceTree = "<group>"; };
 		33FB1C3BD8CDECA7DA1904CA /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
@@ -55,6 +58,7 @@
 		6F8F2ACEAFCBDD87ACAECA41 /* SearchExplorerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SearchExplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70461EA31E5CAA2BD7CF07F3 /* GitHubSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchDTO.swift; sourceTree = "<group>"; };
 		738CAC9F9F612C61218F6348 /* RepositoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryRowView.swift; sourceTree = "<group>"; };
+		73F9C723C6B5AFE1A61A938C /* OwnerAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerAvatarView.swift; sourceTree = "<group>"; };
 		938C09D9D818ACECDFDC4298 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96B6DB2B6913BEC40FF54AA2 /* RecentSearchesStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesStoring.swift; sourceTree = "<group>"; };
 		A6E5A90EDA3A45CC6C7944A7 /* SearchNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNetworkClient.swift; sourceTree = "<group>"; };
@@ -69,11 +73,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		040F71E26374B5CCE22D5CAD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				73F9C723C6B5AFE1A61A938C /* OwnerAvatarView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		0763C119A0435FE354001A4F /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				369F72DD6E99C0CF0E9B0A6D /* Detail */,
 				51C2336A3513B50C71624463 /* Search */,
+				040F71E26374B5CCE22D5CAD /* Shared */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -188,6 +201,7 @@
 		D1CE45CCC76E78393D65A1E3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				145DE6671F5AE492E3394C92 /* AsyncTestWait.swift */,
 				309045C0132AF5433B027976 /* RepositoryFixtures.swift */,
 			);
 			path = Helpers;
@@ -297,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17C9C9C763408C982A08B200 /* AsyncTestWait.swift in Sources */,
 				E0E05C175408598DC1E6174D /* FakeHTTPDataServing.swift in Sources */,
 				C0C630B65566063431F4E392 /* FakeRecentSearchesStore.swift in Sources */,
 				F0D73C27C4045A3FA6BAF600 /* FakeSearchService.swift in Sources */,
@@ -314,6 +329,7 @@
 			files = (
 				37C66C0C0745CDBA66036C10 /* GitHubSearchDTO.swift in Sources */,
 				534AF3EE3C92EA282CBE6416 /* KeyValueStoring.swift in Sources */,
+				934CD9A4AE4BC83A4985E2D7 /* OwnerAvatarView.swift in Sources */,
 				29733D27B5974759063C75BA /* RecentSearchesStore.swift in Sources */,
 				545FC789A2F601132A05A074 /* RecentSearchesStoring.swift in Sources */,
 				0B42CD0A46AD57EBEAD4130A /* Repository.swift in Sources */,

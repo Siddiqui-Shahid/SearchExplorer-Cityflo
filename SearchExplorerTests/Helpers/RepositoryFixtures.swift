@@ -63,4 +63,47 @@ enum RepositoryFixtures {
       ]
     }
     """.data(using: .utf8)!
+
+    /// One valid row plus one with an empty `html_url` — client should drop the bad row.
+    /// (`URL(string:)` is permissive; empty string is a reliable nil.)
+    static let mixedValiditySearchJSON = """
+    {
+      "total_count": 2,
+      "incomplete_results": false,
+      "items": [
+        {
+          "id": 42,
+          "name": "swift",
+          "full_name": "apple/swift",
+          "description": "The Swift Programming Language",
+          "stargazers_count": 999,
+          "language": "C++",
+          "html_url": "https://github.com/apple/swift",
+          "forks_count": 10,
+          "open_issues_count": 3,
+          "updated_at": "2024-01-01T12:00:00Z",
+          "owner": {
+            "login": "apple",
+            "avatar_url": "https://avatars.githubusercontent.com/u/1"
+          }
+        },
+        {
+          "id": 99,
+          "name": "broken",
+          "full_name": "owner/broken",
+          "description": null,
+          "stargazers_count": 1,
+          "language": null,
+          "html_url": "",
+          "forks_count": 0,
+          "open_issues_count": 0,
+          "updated_at": null,
+          "owner": {
+            "login": "owner",
+            "avatar_url": null
+          }
+        }
+      ]
+    }
+    """.data(using: .utf8)!
 }

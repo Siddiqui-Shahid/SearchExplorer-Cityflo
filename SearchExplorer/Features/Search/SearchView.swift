@@ -12,16 +12,11 @@ struct SearchView: View {
                 case .loading where viewModel.results.isEmpty:
                     ProgressView("Searching…")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .accessibilityLabel("Searching repositories")
                 case .empty:
                     ContentUnavailableView.search(text: viewModel.query)
                 case .failed(let error):
-                    ContentUnavailableView {
-                        Label("Search failed", systemImage: "exclamationmark.triangle")
-                    } description: {
-                        Text(error.userMessage)
-                    } actions: {
-                        Button("Retry") { viewModel.retry() }
-                    }
+                    failureContent(error)
                 case .loading, .loaded:
                     resultsList
                 }
@@ -39,6 +34,7 @@ struct SearchView: View {
                 if !viewModel.recentSearches.isEmpty {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Clear Recents") { viewModel.clearRecents() }
+                            .accessibilityHint("Removes all saved recent searches")
                     }
                 }
             }
@@ -63,10 +59,22 @@ struct SearchView: View {
                         } label: {
                             Label(term, systemImage: "clock.arrow.circlepath")
                         }
+                        .accessibilityHint("Runs this search again")
                     }
                 }
             }
             .listStyle(.insetGrouped)
+        }
+    }
+
+    private func failureContent(_ error: SearchError) -> some View {
+        ContentUnavailableView {
+            Label(error.title, systemImage: error.systemImage)
+        } description: {
+            Text(error.userMessage)
+        } actions: {
+            Button("Retry") { viewModel.retry() }
+                .accessibilityHint("Runs the current search again")
         }
     }
 
@@ -80,6 +88,7 @@ struct SearchView: View {
                     )
                     .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .accessibilityLabel("Warning: results may be incomplete because GitHub timed out the search")
                 }
             }
 
@@ -99,6 +108,7 @@ struct SearchView: View {
                     HStack {
                         Spacer()
                         ProgressView()
+                            .accessibilityLabel("Loading more repositories")
                         Spacer()
                     }
                     .padding(.vertical, 8)
@@ -111,11 +121,17 @@ struct SearchView: View {
                 ProgressView()
                     .padding(12)
                     .background(.ultraThinMaterial, in: Capsule())
+                    .accessibilityLabel("Updating search results")
             }
         }
     }
 }
 
 #Preview {
-    SearchView(viewModel: SearchViewModel())
+    SearchView(
+        viewModel: SearchViewModel(
+            searchService: SearchNetworkClient(),
+            recentStore: RecentSearchesStore()
+        )
+    )
 }

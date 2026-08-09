@@ -7,7 +7,10 @@ protocol KeyValueStoring: Sendable {
     func removeObject(forKey defaultName: String)
 }
 
-/// Thin Sendable wrapper so the store actor does not hold `UserDefaults` directly.
+/// Thin wrapper so the store actor does not hold `UserDefaults` directly.
+///
+/// `@unchecked Sendable` is intentional: `UserDefaults` is documented as
+/// thread-safe for these simple get/set APIs, but is not marked `Sendable`.
 final class UserDefaultsKeyValueStore: KeyValueStoring, @unchecked Sendable {
     private let defaults: UserDefaults
 

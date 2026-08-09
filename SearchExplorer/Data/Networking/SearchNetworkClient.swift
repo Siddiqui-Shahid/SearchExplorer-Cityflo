@@ -9,12 +9,20 @@ extension URLSession: HTTPDataServing {}
 
 /// Owns URLSession calls for repository search. Named deliberately — not the planted "CFNetworkConduit".
 struct SearchNetworkClient: SearchServing {
+    private static let defaultBaseURL = URL(string: "https://api.github.com")!
+    private static let acceptHeaderValue = "application/vnd.github+json"
+    private static let userAgentValue = "SearchExplorer-CityfloTakehome"
+    private static let requestTimeout: TimeInterval = 20
+
     private let http: any HTTPDataServing
     private let baseURL: URL
 
-    init(http: any HTTPDataServing = URLSession.shared) {
+    init(
+        http: any HTTPDataServing = URLSession.shared,
+        baseURL: URL = SearchNetworkClient.defaultBaseURL
+    ) {
         self.http = http
-        self.baseURL = URL(string: "https://api.github.com")!
+        self.baseURL = baseURL
     }
 
     func searchRepositories(query: String, page: Int, perPage: Int) async throws -> SearchPage {
@@ -36,9 +44,9 @@ struct SearchNetworkClient: SearchServing {
         guard let url = components?.url else { throw SearchError.invalidURL }
 
         var request = URLRequest(url: url)
-        request.setValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
-        request.setValue("SearchExplorer-CityfloTakehome", forHTTPHeaderField: "User-Agent")
-        request.timeoutInterval = 20
+        request.setValue(Self.acceptHeaderValue, forHTTPHeaderField: "Accept")
+        request.setValue(Self.userAgentValue, forHTTPHeaderField: "User-Agent")
+        request.timeoutInterval = Self.requestTimeout
 
         let data: Data
         let response: URLResponse
@@ -56,18 +64,21 @@ struct SearchNetworkClient: SearchServing {
             throw SearchError.unknown(urlError.localizedDescription)
         }
 
-        guard let http = response as? HTTPURLResponse else {
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw SearchError.unknown("Missing HTTP response.")
         }
 
-        switch http.statusCode {
+        switch httpResponse.statusCode {
         case 200:
             break
         case 403, 429:
-            let retry = http.value(forHTTPHeaderField: "Retry-After").flatMap(TimeInterval.init)
+            let retry = httpResponse.value(forHTTPHeaderField: "Retry-After").flatMap(TimeInterval.init)
             throw SearchError.rateLimited(retryAfter: retry)
+        case 422:
+            // Past GitHub's fixed first-1,000 search window.
+            throw SearchError.resultWindowExhausted
         default:
-            throw SearchError.httpStatus(http.statusCode)
+            throw SearchError.httpStatus(httpResponse.statusCode)
         }
 
         let dto: GitHubSearchResponseDTO

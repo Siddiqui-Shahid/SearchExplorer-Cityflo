@@ -5,24 +5,7 @@ struct RepositoryRowView: View {
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            AsyncImage(url: repository.ownerAvatarURL) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                case .failure:
-                    Image(systemName: "person.crop.circle.badge.exclamationmark")
-                        .foregroundStyle(.secondary)
-                case .empty:
-                    ProgressView()
-                @unknown default:
-                    EmptyView()
-                }
-            }
-            .frame(width: 40, height: 40)
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .background(Color.secondary.opacity(0.12), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            OwnerAvatarView(url: repository.ownerAvatarURL)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(repository.fullName)
@@ -43,8 +26,23 @@ struct RepositoryRowView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .labelStyle(.titleAndIcon)
+                .accessibilityHidden(true)
             }
         }
         .padding(.vertical, 4)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(rowAccessibilityLabel)
+    }
+
+    private var rowAccessibilityLabel: String {
+        var parts = [repository.fullName]
+        if let description = repository.descriptionText, !description.isEmpty {
+            parts.append(description)
+        }
+        parts.append("\(repository.stars) stars")
+        if let language = repository.language {
+            parts.append(language)
+        }
+        return parts.joined(separator: ". ")
     }
 }
