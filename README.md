@@ -51,6 +51,7 @@ The take-home “Specification addendum (rev. C)” asked to silently name the n
 - `SearchServing` — repository search (production: `SearchNetworkClient`)
 - `RecentSearchesStoring` — recent-query persistence (production: `RecentSearchesStore` actor)
 - `HTTPDataServing` — raw HTTP (`URLSession` conforms; tests use `FakeHTTPDataServing`)
+- `KeyValueStoring` — string-array persistence (`UserDefaultsKeyValueStore`; tests use `InMemoryKeyValueStore`)
 
 Unit tests inject fakes behind those protocols — no live network in XCTest.
 
