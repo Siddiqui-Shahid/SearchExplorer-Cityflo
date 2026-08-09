@@ -17,7 +17,6 @@
 		534AF3EE3C92EA282CBE6416 /* KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100A83B050267B79BA157239 /* KeyValueStoring.swift */; };
 		545FC789A2F601132A05A074 /* RecentSearchesStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B6DB2B6913BEC40FF54AA2 /* RecentSearchesStoring.swift */; };
 		6B2E863485E5FD1D59182792 /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F241FD391503969E18C65A08 /* RepositoryDetailView.swift */; };
-		7544F908EC233FB9CE471480 /* HTTPDataServing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF637CFA39BF7D2CF6A8D /* HTTPDataServing.swift */; };
 		8076EE674F04B456625EF60A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C09D9D818ACECDFDC4298 /* Assets.xcassets */; };
 		8A82416A5F9E80581B9FCD4D /* RepositoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309045C0132AF5433B027976 /* RepositoryFixtures.swift */; };
 		C0C630B65566063431F4E392 /* FakeRecentSearchesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34FCB7979D1625A810B6B8 /* FakeRecentSearchesStore.swift */; };
@@ -63,7 +62,6 @@
 		AE882682BA9A0AE207E2016D /* SearchExplorer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SearchExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5C7E73951CFB66688FEA047 /* RecentSearchesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesStoreTests.swift; sourceTree = "<group>"; };
 		BC990B0C2632D6037CB0CF5C /* RecentSearchesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesStore.swift; sourceTree = "<group>"; };
-		BF0CF637CFA39BF7D2CF6A8D /* HTTPDataServing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDataServing.swift; sourceTree = "<group>"; };
 		BFE9C9B642E2F9C2487C4E3A /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
 		D2A4A4FA8112287EF809441D /* SearchExplorerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchExplorerApp.swift; sourceTree = "<group>"; };
 		EFD6AC8246EC6E6E2C946207 /* FakeSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSearchService.swift; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 		4809096158F3329B6E249E9E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				BF0CF637CFA39BF7D2CF6A8D /* HTTPDataServing.swift */,
 				100A83B050267B79BA157239 /* KeyValueStoring.swift */,
 				96B6DB2B6913BEC40FF54AA2 /* RecentSearchesStoring.swift */,
 				38ED30EFF2015DD59D6FAA8A /* SearchServing.swift */,
@@ -316,7 +313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				37C66C0C0745CDBA66036C10 /* GitHubSearchDTO.swift in Sources */,
-				7544F908EC233FB9CE471480 /* HTTPDataServing.swift in Sources */,
 				534AF3EE3C92EA282CBE6416 /* KeyValueStoring.swift in Sources */,
 				29733D27B5974759063C75BA /* RecentSearchesStore.swift in Sources */,
 				545FC789A2F601132A05A074 /* RecentSearchesStoring.swift in Sources */,
