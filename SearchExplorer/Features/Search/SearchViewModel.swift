@@ -32,6 +32,7 @@ final class SearchViewModel {
 
     private let searchService: any SearchServing
     private let recentStore: any RecentSearchesStoring
+    private let debounceNanoseconds: UInt64
 
     private var searchTask: Task<Void, Never>?
     private var loadMoreTask: Task<Void, Never>?
@@ -41,10 +42,12 @@ final class SearchViewModel {
 
     init(
         searchService: any SearchServing = SearchNetworkClient(),
-        recentStore: any RecentSearchesStoring = RecentSearchesStore()
+        recentStore: any RecentSearchesStoring = RecentSearchesStore(),
+        debounceNanoseconds: UInt64 = SearchViewModel.searchDebounceNanoseconds
     ) {
         self.searchService = searchService
         self.recentStore = recentStore
+        self.debounceNanoseconds = debounceNanoseconds
     }
 
     func onAppear() {
@@ -95,9 +98,9 @@ final class SearchViewModel {
         let generation = searchGeneration
         phase = .loading
 
-        searchTask = Task { [searchDebounce = Self.searchDebounceNanoseconds] in
+        searchTask = Task { [debounceNanoseconds] in
             if !immediate {
-                try? await Task.sleep(nanoseconds: searchDebounce)
+                try? await Task.sleep(nanoseconds: debounceNanoseconds)
             }
             guard !Task.isCancelled, generation == searchGeneration else { return }
             await performSearch(query: trimmed, generation: generation)

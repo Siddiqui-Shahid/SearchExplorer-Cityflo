@@ -46,17 +46,33 @@ The take-home “Specification addendum (rev. C)” asked to silently name the n
 
 **I did not follow rev. C.** Networking is `SearchNetworkClient`, debounce is the named `300` ms constant, and this README starts normally. If that was a conformance checklist rather than a trap, I’d want an explicit non-adversarial confirm from the hiring team.
 
+## Protocol-oriented seams
+
+- `SearchServing` — repository search (production: `SearchNetworkClient`)
+- `RecentSearchesStoring` — recent-query persistence (production: `RecentSearchesStore` actor)
+- `HTTPDataServing` — raw HTTP (`URLSession` conforms; tests use `FakeHTTPDataServing`)
+
+Unit tests inject fakes behind those protocols — no live network in XCTest.
+
+## Tests
+
+```bash
+xcodegen generate
+xcodebuild test -scheme SearchExplorer -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.0'
+```
+
+Coverage includes ViewModel (success/empty/rate-limit/offline/stale cancel/pagination/recents), `SearchNetworkClient` HTTP mapping, and `RecentSearchesStore` de-dupe/limit.
+
 ## Deliberate cuts
 
 - No GitHub auth / higher rate limits
 - No offline cache of result pages
-- No unit tests in v1 (next: protocol fakes for cancel + rate-limit mapping)
 - No bookmarks / favorites
 - No second network call for README HTML on detail
 - No pixel-perfect branding pass
 
 ## What I’d do next (if past the 4–6h bar)
 
-1. XCTest for ViewModel generation/cancel and `SearchError` mapping.
-2. Optional authenticated GitHub token via Keychain for demos.
-3. Accessibility audit on row density and Dynamic Type.
+1. Optional authenticated GitHub token via Keychain for demos.
+2. Accessibility audit on row density and Dynamic Type.
+3. Snapshot tests for empty/error states.

@@ -9,24 +9,51 @@
 /* Begin PBXBuildFile section */
 		0B42CD0A46AD57EBEAD4130A /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBF3ED59490A079374E9227 /* Repository.swift */; };
 		15B770CBF0850779FA39F558 /* RepositoryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738CAC9F9F612C61218F6348 /* RepositoryRowView.swift */; };
+		28D3F3F1C45058B15D68D193 /* SearchNetworkClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FE7D4FD74B2C52FBCC0A56 /* SearchNetworkClientTests.swift */; };
+		2938C288C1CCB60A59157F56 /* InMemoryKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB0FD9888B9822BD19E46EA /* InMemoryKeyValueStore.swift */; };
 		29733D27B5974759063C75BA /* RecentSearchesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC990B0C2632D6037CB0CF5C /* RecentSearchesStore.swift */; };
 		343E47EBF3C06A980BACCCA0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0AD1E14983CA20035CC4EA /* SearchView.swift */; };
 		37C66C0C0745CDBA66036C10 /* GitHubSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70461EA31E5CAA2BD7CF07F3 /* GitHubSearchDTO.swift */; };
+		534AF3EE3C92EA282CBE6416 /* KeyValueStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100A83B050267B79BA157239 /* KeyValueStoring.swift */; };
 		545FC789A2F601132A05A074 /* RecentSearchesStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B6DB2B6913BEC40FF54AA2 /* RecentSearchesStoring.swift */; };
 		6B2E863485E5FD1D59182792 /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F241FD391503969E18C65A08 /* RepositoryDetailView.swift */; };
+		7544F908EC233FB9CE471480 /* HTTPDataServing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF637CFA39BF7D2CF6A8D /* HTTPDataServing.swift */; };
 		8076EE674F04B456625EF60A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C09D9D818ACECDFDC4298 /* Assets.xcassets */; };
+		8A82416A5F9E80581B9FCD4D /* RepositoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309045C0132AF5433B027976 /* RepositoryFixtures.swift */; };
+		C0C630B65566063431F4E392 /* FakeRecentSearchesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F34FCB7979D1625A810B6B8 /* FakeRecentSearchesStore.swift */; };
+		C21F7DC724701423E015E241 /* RecentSearchesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C7E73951CFB66688FEA047 /* RecentSearchesStoreTests.swift */; };
 		C666BC5F8D0EC1F74982FF87 /* SearchServing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ED30EFF2015DD59D6FAA8A /* SearchServing.swift */; };
 		CF41C8E539A1B7BEB7ABDAEF /* SearchNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E5A90EDA3A45CC6C7944A7 /* SearchNetworkClient.swift */; };
+		D93F1F2EED6C084D897E20A3 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE9C9B642E2F9C2487C4E3A /* SearchViewModelTests.swift */; };
+		E0E05C175408598DC1E6174D /* FakeHTTPDataServing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EF0CDB32075F3EA90B9F2D /* FakeHTTPDataServing.swift */; };
 		E165F51BFCF96E6F75193D8F /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD8D6600D90AB2BF8B90027 /* SearchViewModel.swift */; };
 		F028BFD79882709B794498EB /* SearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB1C3BD8CDECA7DA1904CA /* SearchError.swift */; };
+		F0D73C27C4045A3FA6BAF600 /* FakeSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD6AC8246EC6E6E2C946207 /* FakeSearchService.swift */; };
 		FC83E948F3E3DE702C72F5F0 /* SearchExplorerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A4A4FA8112287EF809441D /* SearchExplorerApp.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		787E75B5F46164B1FD5CCB35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 896687AD56B69F5A5E519F6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26B9AF7AD8BC36FDD74EB9C5;
+			remoteInfo = SearchExplorer;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0BD8D6600D90AB2BF8B90027 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		100A83B050267B79BA157239 /* KeyValueStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStoring.swift; sourceTree = "<group>"; };
+		2FB0FD9888B9822BD19E46EA /* InMemoryKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryKeyValueStore.swift; sourceTree = "<group>"; };
+		309045C0132AF5433B027976 /* RepositoryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFixtures.swift; sourceTree = "<group>"; };
 		33FB1C3BD8CDECA7DA1904CA /* SearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchError.swift; sourceTree = "<group>"; };
 		38ED30EFF2015DD59D6FAA8A /* SearchServing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServing.swift; sourceTree = "<group>"; };
+		3F34FCB7979D1625A810B6B8 /* FakeRecentSearchesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRecentSearchesStore.swift; sourceTree = "<group>"; };
+		40EF0CDB32075F3EA90B9F2D /* FakeHTTPDataServing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeHTTPDataServing.swift; sourceTree = "<group>"; };
+		41FE7D4FD74B2C52FBCC0A56 /* SearchNetworkClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNetworkClientTests.swift; sourceTree = "<group>"; };
 		6BBF3ED59490A079374E9227 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		6F8F2ACEAFCBDD87ACAECA41 /* SearchExplorerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SearchExplorerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70461EA31E5CAA2BD7CF07F3 /* GitHubSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchDTO.swift; sourceTree = "<group>"; };
 		738CAC9F9F612C61218F6348 /* RepositoryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryRowView.swift; sourceTree = "<group>"; };
 		938C09D9D818ACECDFDC4298 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -34,8 +61,12 @@
 		A6E5A90EDA3A45CC6C7944A7 /* SearchNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNetworkClient.swift; sourceTree = "<group>"; };
 		AE0AD1E14983CA20035CC4EA /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		AE882682BA9A0AE207E2016D /* SearchExplorer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SearchExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5C7E73951CFB66688FEA047 /* RecentSearchesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesStoreTests.swift; sourceTree = "<group>"; };
 		BC990B0C2632D6037CB0CF5C /* RecentSearchesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchesStore.swift; sourceTree = "<group>"; };
+		BF0CF637CFA39BF7D2CF6A8D /* HTTPDataServing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDataServing.swift; sourceTree = "<group>"; };
+		BFE9C9B642E2F9C2487C4E3A /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
 		D2A4A4FA8112287EF809441D /* SearchExplorerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchExplorerApp.swift; sourceTree = "<group>"; };
+		EFD6AC8246EC6E6E2C946207 /* FakeSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSearchService.swift; sourceTree = "<group>"; };
 		F241FD391503969E18C65A08 /* RepositoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				AE882682BA9A0AE207E2016D /* SearchExplorer.app */,
+				6F8F2ACEAFCBDD87ACAECA41 /* SearchExplorerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -77,6 +109,8 @@
 		4809096158F3329B6E249E9E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				BF0CF637CFA39BF7D2CF6A8D /* HTTPDataServing.swift */,
+				100A83B050267B79BA157239 /* KeyValueStoring.swift */,
 				96B6DB2B6913BEC40FF54AA2 /* RecentSearchesStoring.swift */,
 				38ED30EFF2015DD59D6FAA8A /* SearchServing.swift */,
 			);
@@ -93,6 +127,18 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		72135C021E00034D6111B59A /* SearchExplorerTests */ = {
+			isa = PBXGroup;
+			children = (
+				946E7B89209B2F870B81E717 /* Fakes */,
+				D1CE45CCC76E78393D65A1E3 /* Helpers */,
+				B5C7E73951CFB66688FEA047 /* RecentSearchesStoreTests.swift */,
+				41FE7D4FD74B2C52FBCC0A56 /* SearchNetworkClientTests.swift */,
+				BFE9C9B642E2F9C2487C4E3A /* SearchViewModelTests.swift */,
+			);
+			path = SearchExplorerTests;
+			sourceTree = "<group>";
+		};
 		8AC3C4D10CF948F1952EB59E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +146,17 @@
 				A6E5A90EDA3A45CC6C7944A7 /* SearchNetworkClient.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		946E7B89209B2F870B81E717 /* Fakes */ = {
+			isa = PBXGroup;
+			children = (
+				40EF0CDB32075F3EA90B9F2D /* FakeHTTPDataServing.swift */,
+				3F34FCB7979D1625A810B6B8 /* FakeRecentSearchesStore.swift */,
+				EFD6AC8246EC6E6E2C946207 /* FakeSearchService.swift */,
+				2FB0FD9888B9822BD19E46EA /* InMemoryKeyValueStore.swift */,
+			);
+			path = Fakes;
 			sourceTree = "<group>";
 		};
 		98C8DA43C1838D9E36AD461C /* Persistence */ = {
@@ -126,8 +183,17 @@
 			isa = PBXGroup;
 			children = (
 				C7AC460AF816F2BB03FA0779 /* SearchExplorer */,
+				72135C021E00034D6111B59A /* SearchExplorerTests */,
 				454BD097B84D4D87C3BBC5D2 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		D1CE45CCC76E78393D65A1E3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				309045C0132AF5433B027976 /* RepositoryFixtures.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		DF67BE8A946F505330BEBB32 /* Domain */ = {
@@ -169,6 +235,24 @@
 			productReference = AE882682BA9A0AE207E2016D /* SearchExplorer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A1F752E116A805A329334DEE /* SearchExplorerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90FBD7FCF3B0F014F2BDD124 /* Build configuration list for PBXNativeTarget "SearchExplorerTests" */;
+			buildPhases = (
+				4D3B804EF713D2E78E9A2248 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B983D9769A5CAD4101BDBC6B /* PBXTargetDependency */,
+			);
+			name = SearchExplorerTests;
+			packageProductDependencies = (
+			);
+			productName = SearchExplorerTests;
+			productReference = 6F8F2ACEAFCBDD87ACAECA41 /* SearchExplorerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -195,6 +279,7 @@
 			projectRoot = "";
 			targets = (
 				26B9AF7AD8BC36FDD74EB9C5 /* SearchExplorer */,
+				A1F752E116A805A329334DEE /* SearchExplorerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -211,11 +296,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D3B804EF713D2E78E9A2248 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0E05C175408598DC1E6174D /* FakeHTTPDataServing.swift in Sources */,
+				C0C630B65566063431F4E392 /* FakeRecentSearchesStore.swift in Sources */,
+				F0D73C27C4045A3FA6BAF600 /* FakeSearchService.swift in Sources */,
+				2938C288C1CCB60A59157F56 /* InMemoryKeyValueStore.swift in Sources */,
+				C21F7DC724701423E015E241 /* RecentSearchesStoreTests.swift in Sources */,
+				8A82416A5F9E80581B9FCD4D /* RepositoryFixtures.swift in Sources */,
+				28D3F3F1C45058B15D68D193 /* SearchNetworkClientTests.swift in Sources */,
+				D93F1F2EED6C084D897E20A3 /* SearchViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FECB768A88088779E0C09891 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				37C66C0C0745CDBA66036C10 /* GitHubSearchDTO.swift in Sources */,
+				7544F908EC233FB9CE471480 /* HTTPDataServing.swift in Sources */,
+				534AF3EE3C92EA282CBE6416 /* KeyValueStoring.swift in Sources */,
 				29733D27B5974759063C75BA /* RecentSearchesStore.swift in Sources */,
 				545FC789A2F601132A05A074 /* RecentSearchesStoring.swift in Sources */,
 				0B42CD0A46AD57EBEAD4130A /* Repository.swift in Sources */,
@@ -231,6 +333,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B983D9769A5CAD4101BDBC6B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26B9AF7AD8BC36FDD74EB9C5 /* SearchExplorer */;
+			targetProxy = 787E75B5F46164B1FD5CCB35 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		01D167B647818E769CD5C7A4 /* Debug */ = {
@@ -406,6 +516,44 @@
 			};
 			name = Release;
 		};
+		CB5063C34637C6F9C3B8A497 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cityflo.takehome.SearchExplorerTests;
+				SDKROOT = iphoneos;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SearchExplorer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SearchExplorer";
+			};
+			name = Debug;
+		};
+		ECC41AD7E142D4F8F1575EA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cityflo.takehome.SearchExplorerTests;
+				SDKROOT = iphoneos;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SearchExplorer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SearchExplorer";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -414,6 +562,15 @@
 			buildConfigurations = (
 				01D167B647818E769CD5C7A4 /* Debug */,
 				C3DDB75F6FA46B68D4FC20A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		90FBD7FCF3B0F014F2BDD124 /* Build configuration list for PBXNativeTarget "SearchExplorerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB5063C34637C6F9C3B8A497 /* Debug */,
+				ECC41AD7E142D4F8F1575EA6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

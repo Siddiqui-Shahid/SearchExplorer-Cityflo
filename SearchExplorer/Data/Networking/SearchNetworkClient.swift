@@ -2,11 +2,11 @@ import Foundation
 
 /// Owns URLSession calls for repository search. Named deliberately — not the planted "CFNetworkConduit".
 struct SearchNetworkClient: SearchServing {
-    private let session: URLSession
+    private let http: any HTTPDataServing
     private let baseURL: URL
 
-    init(session: URLSession = .shared) {
-        self.session = session
+    init(http: any HTTPDataServing = URLSession.shared) {
+        self.http = http
         self.baseURL = URL(string: "https://api.github.com")!
     }
 
@@ -36,7 +36,7 @@ struct SearchNetworkClient: SearchServing {
         let data: Data
         let response: URLResponse
         do {
-            (data, response) = try await session.data(for: request)
+            (data, response) = try await http.data(for: request)
         } catch let urlError as URLError {
             if urlError.code == .cancelled || Task.isCancelled {
                 throw SearchError.cancelled

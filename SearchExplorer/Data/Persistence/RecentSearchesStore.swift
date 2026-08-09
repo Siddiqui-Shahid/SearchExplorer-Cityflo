@@ -3,22 +3,22 @@ import Foundation
 actor RecentSearchesStore: RecentSearchesStoring {
     static let defaultLimit = 10
 
-    private let defaults: UserDefaults
+    private let storage: any KeyValueStoring
     private let key: String
     private let limit: Int
 
     init(
-        defaults: UserDefaults = .standard,
+        storage: any KeyValueStoring = UserDefaultsKeyValueStore(),
         key: String = "search_explorer.recent_queries",
         limit: Int = RecentSearchesStore.defaultLimit
     ) {
-        self.defaults = defaults
+        self.storage = storage
         self.key = key
         self.limit = limit
     }
 
     func load() async -> [String] {
-        defaults.stringArray(forKey: key) ?? []
+        storage.stringArray(forKey: key) ?? []
     }
 
     func record(_ query: String) async -> [String] {
@@ -31,11 +31,11 @@ actor RecentSearchesStore: RecentSearchesStoring {
         if current.count > limit {
             current = Array(current.prefix(limit))
         }
-        defaults.set(current, forKey: key)
+        storage.set(current, forKey: key)
         return current
     }
 
     func clear() async {
-        defaults.removeObject(forKey: key)
+        storage.removeObject(forKey: key)
     }
 }
